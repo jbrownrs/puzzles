@@ -47,16 +47,9 @@ def dip_the_bowl(punchbowl, jug):
         print('For a 50:50 mix (aka', punch_proportion_two,
         '% punch) the jug capacity is', jug)   
         return
-    #elif punch_proportion_two > 0.5:
-        #jug = (punchbowl - jug)/2
-        # if too much punch need a bigger jug
-        # jug = jug + (0.3*jug)
-     #   jug = jug + (jug*(punch_proportion_two - 0.5))
-     #   dip_the_bowl(punchbowl,jug)
     else:
-        #jug = jug/2
-        # if not enough punch need a smaller jug
-        #jug = jug - (0.3*jug)
+        # if not enough punch we need a smaller jug
+        # if too much punch we need a bigger jug
         jug = jug + (jug*(punch_proportion_two - 0.5))
         dip_the_bowl(punchbowl,jug)
             
