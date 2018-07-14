@@ -38,7 +38,7 @@ def dip_the_bowl(punchbowl, jug):
     # 'given a jug of capacity', jug)    
     if round_sig(punch_proportion_two,5) == 0.50:
         print('For a 1:1 mix (aka',round_sig(punch_proportion_two,2)*100,
-        '% punch) the jug capacity is', round_sig(jug,3),'litres (to 3 s.f.)')   
+        '% punch) in your',punchbowl,'litre punchbowl the jug capacity required is', round_sig(jug,3),'litres (to 3 s.f.)')   
         return
     else:
         # if not enough punch we need a smaller jug
@@ -46,11 +46,25 @@ def dip_the_bowl(punchbowl, jug):
         jug = jug + (jug*(punch_proportion_two - 0.5))
         dip_the_bowl(punchbowl,jug)
 
+def size_input():
+      while True:
+         size = input("How big is your punchbowl (in litres)?\n")
+         try:
+            value = float(size)
+            if value > 0:
+               break
+            else:
+               print("Invalid input! Please enter a number greater than zero.")
+         except ValueError:
+            message = "Invalid input! Please enter a number greater than zero."
+            print(message)
+      return value
 
-punchbowl = float(input("How big is your punchbowl (in litres)?"))
+#punchbowl = size_input("How big is your punchbowl (in litres)?\n")
+punchbowl = size_input()
 # initialise with a random jug capacity guess
 jug = random.uniform(0.01, punchbowl-0.01)
-print("Random initial jug capacity guess:",round_sig(jug,3),'litres')
+print("Initialising with a random jug capacity guess of:",round_sig(jug,3),'litres')
 #howManyRepetitions = int((input("How many times do you wish to use the jug?"))
 dip_the_bowl(punchbowl, jug)
 
