@@ -1,7 +1,7 @@
 """
 Script for making iterative guesses to the following
 ECM-Selection problem:
-It's time for the ACME Ltd 'Spring into Summer' staff event.
+"It's time for the ACME Ltd 'Spring into Summer' staff event.
 Amongst the refreshments, there's a 10 litre punchbowl filled
 to the brim with ACME's legendary punch. Now, a jug
 (capacity J litres) is filled from the bowl, and the punchbowl
@@ -14,57 +14,17 @@ liquid from the punchbowl, and the bowl topped up with water.
 Unfortunately for latecomers to the event, the proportion of
 punch to water in the punchbowl is now 1:1.
 
-What is the capacity of the jug?
+What is the capacity of the jug?"
 """
 import random
 from math import log10, floor, sqrt
+import ecm_puzzle_module
 
-def round_sig(x, sig):
-   return round(x, sig-int(floor(log10(abs(x))))-1)
-
-def dip_the_bowl(punchbowl, jug):
-    # for _ in xrange(howManyRepetitions):
-    # currently defaults to two dips to remove punch and add water
-    punch_amount_reduced = punchbowl - jug
-    # how much punch is there if we then add in the jug of water
-    punch_proportion = punch_amount_reduced/punchbowl
-    # the actual punch amount will be the same as before addition of water
-    # only the proportion will change
-    # second removal of punch
-    punch_amount_reduced_2 = (punch_amount_reduced)*punch_proportion
-    # add water for second time what's the proportion of punch
-    punch_proportion_two = punch_amount_reduced_2/punchbowl
-    # print('Proportion of the punchbowl that is punch is', punch_proportion_two,
-    # 'given a jug of capacity', jug)    
-    if round_sig(punch_proportion_two,5) == 0.50:
-        print('For a 1:1 mix (aka',round_sig(punch_proportion_two,2)*100,
-        '% punch) in your',punchbowl,'litre punchbowl the jug capacity required is', round_sig(jug,3),'litres (to 3 s.f.)')   
-        return
-    else:
-        # if not enough punch we need a smaller jug
-        # if too much punch we need a bigger jug
-        jug = jug + (jug*(punch_proportion_two - 0.5))
-        dip_the_bowl(punchbowl,jug)
-
-def size_input():
-      while True:
-         size = input("How big is your punchbowl (in litres)?\n")
-         try:
-            value = float(size)
-            if value > 0:
-               break
-            else:
-               print("Invalid input! Please enter a number greater than zero.")
-         except ValueError:
-            message = "Invalid input! Please enter a number greater than zero."
-            print(message)
-      return value
-
-#punchbowl = size_input("How big is your punchbowl (in litres)?\n")
-punchbowl = size_input()
+punchbowl = ecm_puzzle_module.size_input()
 # initialise with a random jug capacity guess
 jug = random.uniform(0.01, punchbowl-0.01)
-print("Initialising with a random jug capacity guess of:",round_sig(jug,3),'litres')
+print("Initialising with a random jug capacity guess of:",ecm_puzzle_module.round_sig(jug,3),'litres')
+#could extend with changes to the number of jug dipping iterations
 #howManyRepetitions = int((input("How many times do you wish to use the jug?"))
-dip_the_bowl(punchbowl, jug)
+ecm_puzzle_module.dip_the_bowl(punchbowl, jug)
 
