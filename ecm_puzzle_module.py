@@ -18,48 +18,49 @@ What is the capacity of the jug?"
 For the script to solve this run (in command line)
 python3 ecm_puzzle.py
 """
-import random
-from math import log10, floor, sqrt
+from math import log10, floor
+
 
 def round_sig(x, sig):
-   return round(x, sig-int(floor(log10(abs(x))))-1)
+    return round(x, sig - int(floor(log10(abs(x)))) - 1)
 
-def dip_the_bowl(punchbowl,jug):
+
+def dip_the_bowl(punchbowl, jug):
     # for _ in xrange(howManyRepetitions):
     # currently defaults to two dips to remove punch and add water
     punch_amount_reduced = punchbowl - jug
     # how much punch is there if we then add in the jug of water
-    punch_proportion = punch_amount_reduced/punchbowl
+    punch_proportion = punch_amount_reduced / punchbowl
     # the actual punch amount will be the same as before addition of water
     # only the proportion will change
     # second removal of punch
-    punch_amount_reduced_2 = (punch_amount_reduced)*punch_proportion
+    punch_amount_reduced_2 = punch_amount_reduced * punch_proportion
     # add water for second time what's the proportion of punch
-    punch_proportion_two = punch_amount_reduced_2/punchbowl
-    # print('Proportion of the punchbowl that is punch is', punch_proportion_two,
-    # 'given a jug of capacity', jug)    
-    if round_sig(punch_proportion_two,5) != 0.50:
-       # if not enough punch we need a smaller jug
+    punch_proportion_two = punch_amount_reduced_2 / punchbowl
+    if round_sig(punch_proportion_two, 5) != 0.50:
+        # if not enough punch we need a smaller jug
         # if too much punch we need a bigger jug
-        jug = jug + (jug*(punch_proportion_two - 0.5))
-        return dip_the_bowl(punchbowl,jug)
+        jug = jug + (jug * (punch_proportion_two - 0.5))
+        return dip_the_bowl(punchbowl, jug)
     else:
-        answer = round_sig(jug,3)
-        print('For a 1:1 mix (aka',round_sig(punch_proportion_two,2)*100,
-        '% punch) in your',punchbowl,'litre punchbowl the jug capacity required is', round_sig(jug,3),'litres (to 3 s.f.)')   
+        answer = round_sig(jug, 3)
+        print('For a 1:1 mix (aka', round_sig(punch_proportion_two, 2) * 100,
+              '% punch) in your', punchbowl,
+              'litre punchbowl the jug capacity required is',
+              round_sig(jug, 3), 'litres (to 3 s.f.)')
         return answer
 
+
 def size_input():
-      while True:
-         size = input("How big is your punchbowl (in litres)?\n")
-         try:
+    while True:
+        size = input("How big is your punchbowl (in litres)?\n")
+        try:
             value = float(size)
             if value > 0:
-               break
+                break
             else:
-               print("Invalid input! Please enter a number greater than zero.")
-         except ValueError:
+                print("Invalid input! Please enter a number greater than zero.")
+        except ValueError:
             message = "Invalid input! Please enter a number greater than zero."
             print(message)
-      return value
-
+    return value
